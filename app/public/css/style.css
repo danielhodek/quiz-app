@@ -73,7 +73,7 @@ select,
 a {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
-input[type="text"], textarea {
+input[type="text"], textarea 	 {
 	box-shadow: none;
 	-webkit-appearance: none;
 }
