@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<%- include partials/head.ejs %>
+	<body>
+		<%- include partials/header.ejs %>
+		<main class="fixed-container">
+			<div class="container">
+				<div class="margin-auto">
+					<a href="/profile" class="link mb-2 py-1">&lsaquo; Back</a></div>
+					<h2 class="mb-3">Name you quiz</h2>
+					<form id="create">
+						<input type="text" id="title" class="form-control line" placeholder="Quiz Title" required autofocus>
+						<div id="title-error" class="form-error mb-2"></div>
+						<button type="submit" class="btn btn-primary">Create!</button>
+					</form>
+				</div>
+			</div>
+		</main>
+		<script src='/js/navbar.js'></script>
+		<script>
+			document.getElementById('create').addEventListener('submit', function(event) {
+				event.preventDefault();
+				console.log('create');
+
+				let title = document.getElementById('title');
+				let titleError = document.getElementById('title-error');
+
+				let params = 'title='+title.value;
+
+				let xhr = new XMLHttpRequest();
+				xhr.open('POST', '/create');
+				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhr.send(params);
+				xhr.onload = function() {
+					if (this.status === 200) {
+						let data = JSON.parse(this.responseText);
+						console.log(data);
+						if (data.success === true) {
+							window.location.href = 'http://192.168.0.6:3000/view';
+						} else {
+							if (data.errors.title) titleError.innerHTML = data.errors.title;
+						}
+					}
+				}
+			});
+
+			document.getElementById('title').addEventListener('focus', function() {
+				document.getElementById('title-error').innerHTML = '';
+			});
+		</script>
+	</body>
+</html>

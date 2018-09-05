@@ -1,0 +1,13 @@
+<div class="card mb-3">
+	<div class="card-body text-center">
+		<h5><%= question.text %></h5>
+	</div>
+	<ul class="list-group list-group-flush">
+		<% for (let answer of question.answers) { %>
+			<li class="list-item <% if (answer.correct) { %>list-group-item-success<% } else { %>list-group-item-danger<% } %>"><%= answer.text %></li>
+		<% } %>
+	</ul>
+	<div class="card-body">
+		<button class="link fl delete" onclick="deleteQuestion(event)" data-id="<%= question._id %>">Delete</button>
+	</div>
+</div>

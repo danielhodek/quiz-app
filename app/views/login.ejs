@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<% include partials/head.ejs %>
+	<body>
+		<main class="center text-center">
+			<form id="login" class="form-signin">
+				<i class="material-icons md-64">school</i>
+				<h2>Please log in</h2>
+				<fieldset>
+					<input type="text" id="username" name="username" class="form-control line" placeholder="Username" required>
+					<div id="username-error" class="form-error"></div>
+					<input type="password" id="password" name="password" class="form-control line" placeholder="Password" required>
+					<div id="password-error" class="form-error"></div>
+				</fieldset>
+				<button type="submit" class="btn btn-success btn-lg">Log in</button>
+			</form>
+		</main>
+		<script>
+			document.getElementById('login').addEventListener('submit', function(event) {
+				event.preventDefault();
+
+				let username = document.getElementById('username');
+				let password = document.getElementById('password');
+				let usernameError = document.getElementById('username-error');
+				let passwordError = document.getElementById('password-error');
+
+				let params = 'username='+username.value+'&password='+password.value;
+
+				let xhr = new XMLHttpRequest();
+				xhr.open('POST', '/login');
+				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhr.send(params);
+				xhr.onload = function() {
+					if (this.status === 200) {
+						let data = JSON.parse(this.responseText);
+						if (data.success === true) {
+							window.location.href = 'http://192.168.0.6:3000/profile';
+						} else {
+							if (data.errors.username) usernameError.innerHTML = data.errors.username;
+							if (data.errors.password) passwordError.innerHTML = data.errors.password;
+						}
+					}
+				}
+			});
+
+			document.getElementById('username').addEventListener('focus', function() {
+				document.getElementById('username-error').innerHTML = '';
+			});
+			document.getElementById('password').addEventListener('focus', function() {
+				document.getElementById('password-error').innerHTML = '';
+			});
+		</script>
+	</body>
+</html>

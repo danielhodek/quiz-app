@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<% include partials/head.ejs %>
+	<body class="no-scroll">
+		<div id="modal-start" class="modal modal-show">
+			<div class="margin-auto card col-10 col-xl-5">
+				<div class="card-header flex-row justify-content-center align-items-center">
+					<h5 class="card-title mb-0">Quiz Details</h5>
+				</div>
+				<div class="card-body flex-column align-items-center">
+					<label for="minutes">Time Limit <span class="text-muted">(Minutes)</span></label>
+					<div class="input-group col-sm-3 number-picker" data-min="5" data-max="60" data-step="5">
+						<div class="input-group-text"><button type="button" class="decrement"><i class="material-icons md-18">remove</i></button></div>
+						<input type="text" id="time" class="text-center form-control" value="5" disabled>
+						<div class="input-group-text"><button type="button" class="increment"><i class="material-icons md-18">add</i></button></div>
+					</div>
+				</div>
+				<div class="card-footer text-center">
+					<button id="start-button" type="button" class="modal-toggle btn btn-primary" data-target="modal-start">Start!</button>
+				</div>
+			</div>
+		</div>
+		<header id="header" class="fixed-header py-2 quiz-header text-center">
+			<div id="timer" class="hide"><span id="minutes"></span>:<span id="seconds"></span></div>
+			<h3 class="mb-0"><%= quiz.title %></h3>
+		</header>
+		<main id="content" class="container">
+			<% for (let i = 0; i < questions.length; i++) { %>
+				<div class="quiz-question col-sm-10 my-4 margin-auto">
+					<p class="quiz-quesiton-text mb-2"><%= i + 1 %>. <%= questions[i].text %></p>
+					<% for (let j = 0; j < questions[i].answers.length; j++) { %>
+						<div class="form-check mb-2">
+							<input class="form-check-input" type="radio" name="question" id="question<%= i %>-<%= j %>" value="<%= j %>">
+							<label class="form-check-label" for="question<%= i %>-<%= j %>"><%= letters[j] %>) <%= questions[i].answers[j].text %></label>
+						</div>
+					<% } %>
+				</div>
+			<% } %>
+			<div class="flex-row justify-content-center py-4"><button class="btn btn-lg btn-primary">Submit</button></div>
+		</main>
+		<script src="js/modal.js"></script>
+		<script src="js/number.js"></script>
+		<script>
+			let contentPlacement = document.getElementById('header').offsetHeight;
+			document.getElementById('content').style.paddingTop = contentPlacement + 'px';
+
+			document.getElementById('start-button').addEventListener('click', function(event) {
+				let timer = document.getElementById('timer');
+				let timerMinutes = document.getElementById('minutes');
+				let timerSeconds = document.getElementById('seconds');
+				let minutes = parseInt(document.getElementById('time').value);
+				let seconds = 0;
+
+				timer.classList.remove('hide');
+
+				timerMinutes.innerHTML = minutes.toString().padStart(2, '0');
+				timerSeconds.innerHTML = seconds.toString().padStart(2, '0');
+
+				let interval = setInterval(function() {
+					if (seconds === 0) {
+						--minutes;
+						seconds = 59;
+					} else {
+						--seconds;
+					}
+					timerMinutes.innerHTML = minutes.toString().padStart(2, '0');
+					timerSeconds.innerHTML = seconds.toString().padStart(2, '0');
+					if (minutes === 0) clearInterval(interval);
+				}, 1000);
+			});
+
+			let radios = document.querySelectorAll('.form-check-input');
+			for (let radio of radios) {
+				radio.addEventListener('click', function() {
+					if (radio.classList.contains('selected')) {
+						radio.checked = false;
+						radio.classList.remove('selected');
+					} else {
+						radio.checked = true;
+						radio.classList.add('selected');
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<% include partials/head.ejs %>
+	<body>
+		<% include partials/header.ejs %>
+		<main class="fixed-container">
+			<% include partials/carousel.ejs %>
+			<div class="container text-center">
+				<p>	
+					<a class="btn btn-outline-secondary btn-lg" href="/signup">Sign Up</a><span class="text-btn-align"> or </span><a class="btn btn-outline-secondary btn-lg" href="/login">Log In</a>
+				<p>
+			</div>
+		</main>
+		<% include partials/footer.ejs %>
+		<script src='/js/navbar.js'></script>
+		<script src='/js/carousel.js'></script>
+	</body>
+</html>

@@ -1,0 +1,19 @@
+<header class="fixed-header">
+	<nav class="navbar bg-dark">
+		<a class="navbar-brand" href="/">Testing</a>
+		<% if (links) { %>
+			<button class="toggle" data-target="nav">
+				<i class="material-icons md-36">menu</i>
+			</button>
+		<% } %>
+		<div id="nav" class="collapse">
+			<ul class="nav">
+				<% if (links) { %>
+					<% for (let link of links) { %>
+						<li><a href="<%= link.href %>"><%= link.name %></a></li>
+					<% } %>
+				<% } %>
+			</ul>
+		</div>
+	</nav>
+</header>

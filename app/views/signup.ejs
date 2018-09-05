@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<% include partials/head.ejs %>
+	<body>
+		<main class="center text-center">	
+			<form id="signup" class="form-signin">
+				<i class="material-icons md-64">school</i>
+				<h2>Enter your details</h2>
+				<fieldset>
+					<input type="text" id="name" class="form-control line" placeholder="Name" required autofocus>
+					<div id="name-error" class="form-error"></div>
+					<input type="text" id="username" class="form-control line" placeholder="Username" required>
+					<div id="username-error" class="form-error"></div>
+					<input type="password" id="password" class="form-control line" placeholder="Password" required>
+					<div id="password-error" class="form-error"></div>
+				</fieldset>
+				<button type="submit" class="btn btn-success btn-lg">Sign Up</button>
+			</form>
+		</main>
+		<script>
+			document.getElementById('signup').addEventListener('submit', function(event) {
+				event.preventDefault();
+
+				let name = document.getElementById('name');
+				let username = document.getElementById('username');
+				let password = document.getElementById('password');
+				let nameError = document.getElementById('name-error');
+				let usernameError = document.getElementById('username-error');
+				let passwordError = document.getElementById('password-error');
+
+				let params = 'name='+name.value+'&username='+username.value+'&password='+password.value;
+
+				let xhr = new XMLHttpRequest();
+				xhr.open('POST', '/signup');
+				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhr.send(params);
+				xhr.onload = function() {
+					if (this.status === 200) {
+						let data = JSON.parse(this.responseText);
+						if (data.success === true) {
+							window.location.href = 'http://192.168.0.6:3000/profile';
+						} else {
+							if (data.errors.username) usernameError.innerHTML = data.errors.username;
+						}
+					}
+				}
+			});
+
+			document.getElementById('username').addEventListener('focus', function() {
+				document.getElementById('username-error').innerHTML = '';
+			});
+		</script>
+	</body>
+</html>

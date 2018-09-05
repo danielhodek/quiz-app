@@ -1,0 +1,31 @@
+<!DOCTYPE>
+<html>
+	<% include partials/head.ejs %>
+	<body>
+		<% include partials/header.ejs %>
+		<main class="fixed-container">
+			<div class="container">
+				<a href="/profile" class="link mb-2 py-1">&lsaquo; Back</a>
+				<h3>Library</h3>
+				<% for (let quiz of quizzes) { %>
+					<div class="card mb-3">
+						<div class="card-body py-3 px-3">
+							<h5 class="card-title"><%= quiz.title %></h5>
+							<h6 class="card-subtitle">
+								<% if (quiz.questions.length === 1) { %>
+									<%= quiz.questions.length %> Question
+								<% } else { %>
+									<%= quiz.questions.length %> Questions
+								<% } %>								
+							</h6>
+							<a href="/view/<%= quiz._id %>" class="link">Edit</a>	
+							<a href="/quiz/<%= quiz._id %>" class="link fr">Start Quiz</a>									
+						</div>
+					</div>
+				<% } %>
+			</div>
+		</main>
+	</body>
+	<script src="/js/navbar.js"></script>
+	<script src='/js/modal.js'></script>
+</html>

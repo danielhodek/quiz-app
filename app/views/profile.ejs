@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<% include partials/head.ejs %>
+	<body>
+		<% include partials/header.ejs %>
+		<main class="fixed-container">
+			<div class="container">
+				<h5 class="text-right my-3"><%= name %></h5>
+				<div class="row-sm">
+					<div class="col-sm-4">
+						<a class="btn btn-secondary flex-row mb-2 py-2" href="/library"><p class="mr-2">Library</p><i class="material-icons md-24">view_list</i></a>
+					</div>
+					<div class="col-sm-4">
+						<a class="btn btn-secondary flex-row mb-2 py-2" href="/add"><p class="mr-2">Friends</p><i class="material-icons md-24">group_add</i></a>
+					</div>
+					<div class="col-sm-4">
+						<a class="btn btn-primary flex-row mb-2 py-2" href="/create"><p class="mr-2">Create</p><i class="material-icons md-24">create</i></a>
+					</div>		
+				</div>
+				<hr class="divider my-3">
+				<h4>Notifications</h4>
+			</div>
+		</main>
+		<script src='/js/navbar.js'></script>
+		<script src='/socket.io/socket.io.js'></script>
+		<script>
+			var socket = io();
+		</script>
+	</body>
+</html>
