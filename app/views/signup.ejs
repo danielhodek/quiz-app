@@ -38,7 +38,7 @@
 					if (this.status === 200) {
 						let data = JSON.parse(this.responseText);
 						if (data.success === true) {
-							window.location.href = 'http://192.168.0.16:3000/profile';
+							window.location.href = '<%= url %>' + 'profile';
 						} else {
 							if (data.errors.username) usernameError.innerHTML = data.errors.username;
 						}

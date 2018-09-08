@@ -36,7 +36,7 @@
 						let data = JSON.parse(this.responseText);
 						console.log(data);
 						if (data.success === true) {
-							window.location.href = 'http://192.168.0.16:3000/view';
+							window.location.href =  '<%= url %>' + 'view';
 						} else {
 							if (data.errors.title) titleError.innerHTML = data.errors.title;
 						}

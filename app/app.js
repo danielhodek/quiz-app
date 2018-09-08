@@ -15,6 +15,7 @@ var User = require('./model/user');
 var Quiz = require('./model/quiz');
 
 const PORT = process.env.PORT || 8080;
+const URL = 'https://quiz-site-dhodek.herokuapp.com/'
 
 mongoose.connect('mongodb://danielhodek:Mecury72@ds249942.mlab.com:49942/quiz');
 var db = mongoose.connection;
@@ -36,6 +37,9 @@ io.use(sharedSession(session, {
 }));
 
 app.set('io', io);
+app.locals({
+	url: URL
+});
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
