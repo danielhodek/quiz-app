@@ -73,6 +73,7 @@ router.get('/view', function(req, res) {
 		return res.render('view', {
 			pageTitle: 'View Quiz',
 			quizTitle: quiz.title,
+			quizId: quiz._id,
 			questions: quiz.questions,
 			name: null,
 			links: [

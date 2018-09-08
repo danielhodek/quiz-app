@@ -1,4 +1,4 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 	<%- include partials/head.ejs %>
 	<body>
@@ -27,7 +27,7 @@
 			<div class="container">
 				<a href="/profile" class="link mb-2 py-1">&lsaquo; Back</a>
 				<h3 class="mb-2"><%= quizTitle %></h3>
-				<button id="start" class="btn btn-primary mb-2 mr-2">Start Quiz</button><button id="add" class="modal-toggle btn btn-secondary mb-2" data-target="modal-add">Add Question <i class="material-icons md-18">add</i></button>
+				<a href="/quiz/<%= quizId %>" class="btn btn-primary mb-2 mr-2">Start Quiz</a><button id="add" class="modal-toggle btn btn-secondary mb-2" data-target="modal-add">Add Question <i class="material-icons md-18">add</i></button>
 				<hr class="divider my-3">
 				<h3>Questions</h3>
 				<div id="questions">
