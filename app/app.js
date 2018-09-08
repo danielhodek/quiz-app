@@ -37,9 +37,7 @@ io.use(sharedSession(session, {
 }));
 
 app.set('io', io);
-app.locals({
-	url: URL
-});
+app.locals.url = URL;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
