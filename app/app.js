@@ -14,7 +14,7 @@ var sharedSession = require('express-socket.io-session');
 var User = require('./model/user');
 var Quiz = require('./model/quiz');
 
-const PORT = 3000;
+const PORT = process.env.PORT || 8080;
 
 mongoose.connect('mongodb://danielhodek:Mecury72@ds249942.mlab.com:49942/quiz');
 var db = mongoose.connection;
