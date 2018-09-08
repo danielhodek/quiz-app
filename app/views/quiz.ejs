@@ -4,51 +4,241 @@
 	<body class="no-scroll">
 		<div id="modal-start" class="modal modal-show">
 			<div class="margin-auto card col-10 col-xl-5">
+				<% if (author) { %> 
+					<div class="card-header flex-row justify-content-center align-items-center">
+						<h5 class="card-title mb-0">Quiz Details</h5>
+					</div>
+					<div class="card-body flex-column align-items-center">
+						<label for="minutes">Time Limit <span class="text-muted">(Minutes)</span></label>
+						<div class="input-group col-sm-3 number-picker mb-3" data-min="5" data-max="60" data-step="5">
+							<div class="input-group-text"><button type="button" class="decrement"><i class="material-icons md-18">remove</i></button></div>
+							<input type="text" id="time" class="text-center form-control" value="5" disabled>
+							<div class="input-group-text"><button type="button" class="increment"><i class="material-icons md-18">add</i></button></div>
+						</div>
+						<h6 class="card-section">Users</h6>
+						<div id="users"></div>
+					</div>
+					<div class="card-footer text-center">
+						<button id="start-button" class="modal-toggle btn btn-primary" data-target="modal-start">Start!</button>
+					</div>
+				<% } else { %>
+					<div class="card-body flex-column align-items-center">
+						<p>Waiting for quiz to begin...</p>
+					</div>
+				<% } %>
+			</div>
+		</div>
+
+		<div id="modal-review" class="modal">
+			<div class="margin-auto card col-10 col-xl-5">
 				<div class="card-header flex-row justify-content-center align-items-center">
-					<h5 class="card-title mb-0">Quiz Details</h5>
+					<h5 class="card-title mb-0">Quiz Results</h5>
 				</div>
-				<div class="card-body flex-column align-items-center">
-					<label for="minutes">Time Limit <span class="text-muted">(Minutes)</span></label>
-					<div class="input-group col-sm-3 number-picker" data-min="5" data-max="60" data-step="5">
-						<div class="input-group-text"><button type="button" class="decrement"><i class="material-icons md-18">remove</i></button></div>
-						<input type="text" id="time" class="text-center form-control" value="5" disabled>
-						<div class="input-group-text"><button type="button" class="increment"><i class="material-icons md-18">add</i></button></div>
+				<div class="card-body px-4 flex-column">
+					<div class="review-info"><h6 class="review-label">Score</h6><p class="review-text"><span id="correct-answers"></span>/<span id="total-questions"></span></p></div>
+					<div class="review-info"><h6 class="review-label">Grade</h6><p id="grade" class="review-text"></p></div>
+					<div id="marks">
+
 					</div>
 				</div>
 				<div class="card-footer text-center">
-					<button id="start-button" type="button" class="modal-toggle btn btn-primary" data-target="modal-start">Start!</button>
+					<button id="review-button" class="modal-toggle btn btn-primary" data-target="modal-review">Review Quiz</button>
 				</div>
 			</div>
 		</div>
-		<header id="header" class="fixed-header py-2 quiz-header text-center">
-			<div id="timer" class="hide"><span id="minutes"></span>:<span id="seconds"></span></div>
+
+		<header id="header" class="fixed-header py-3 px-3 quiz-header flex-row justify-content-between align-items-center">
 			<h3 class="mb-0"><%= quiz.title %></h3>
+			<div id="timer" class="hide"><span id="minutes"></span>:<span id="seconds"></span></div>
+			<button id="submit-quiz" class="btn btn-lg btn-primary modal-toggle" data-target="modal-review">Submit</button>
+			<a href="/profile" id="finish-quiz" class="btn btn-lg btn-primary none">Done</a>
 		</header>
+
 		<main id="content" class="container">
-			<% for (let i = 0; i < questions.length; i++) { %>
-				<div class="quiz-question col-sm-10 my-4 margin-auto">
-					<p class="quiz-quesiton-text mb-2"><%= i + 1 %>. <%= questions[i].text %></p>
-					<% for (let j = 0; j < questions[i].answers.length; j++) { %>
-						<div class="form-check mb-2">
-							<input class="form-check-input" type="radio" name="question" id="question<%= i %>-<%= j %>" value="<%= j %>">
-							<label class="form-check-label" for="question<%= i %>-<%= j %>"><%= letters[j] %>) <%= questions[i].answers[j].text %></label>
+			<div class="quiz-container py-4">
+				<% for (let i = 0; i < questions.length; i++) { %>
+					<div class="quiz-question col-sm-10 margin-auto">
+						<p class="quiz-question-text mb-3"><%= i + 1 %>. <%= questions[i].text %></p>
+						<div class="quiz-question-answers">
+							<% for (let j = 0; j < questions[i].answers.length; j++) { %>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="question<%= i %>" id="question<%= i %>-<%= j %>" value="<%= j %>">
+									<label class="form-check-label py-2 flex-row align-items-center" for="question<%= i %>-<%= j %>">
+										<div class="quiz-question-letter mr-3"><%= letters[j] %></div> 
+										<div class="quiz-question-answer"><%= questions[i].answers[j].text %></div>
+									</label>
+								</div>
+							<% } %>
 						</div>
-					<% } %>
-				</div>
-			<% } %>
-			<div class="flex-row justify-content-center py-4"><button class="btn btn-lg btn-primary">Submit</button></div>
+					</div>
+				<% } %>
+			</div>
 		</main>
+
+		<footer id="footer" class="fixed-footer py-3 px-3 quiz-footer flex-row justify-content-between">
+			<button id="prev-question" class="btn btn-control"><i class="material-icons md-48">arrow_left</i></button>
+			<button id="next-question" class="btn btn-control"><i class="material-icons md-48">arrow_right</i></button>
+		</footer>
+
 		<script src="js/modal.js"></script>
 		<script src="js/number.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
 		<script>
+
+			var socket = io();
+			socket.emit('join quiz');
+
+			let self;
+
+			socket.on('new user', function(username) {
+				console.log(username);
+				let user = document.createElement('p');
+				user.innerHTML = username;
+				users.appendChild(user);
+				if (self === undefined) {
+					self = user;
+				}
+			});
+
+			socket.on('start quiz', function(timeLimit) {
+				document.getElementById('modal-start').classList.remove('modal-show');
+				startQuiz(timeLimit);
+			});
+
+			socket.on('leave room', function(username) {
+				console.log('leave room');
+				let users = document.getElementById('users');
+				if (users) {
+					let usersP = users.querySelectorAll('p');
+					for (let userP of usersP) {
+						if (userP.innerHTML === username) {
+							userP.remove();
+						}
+					}
+				}
+			});
+
+			socket.on('show marks', function(data) {
+				let marks = document.getElementById('marks');
+				let marksP = document.createElement('p');
+				marksP.innerHTML = data.username + ': ' + data.correctAnswers + '/' + data.totalQuestions + ' - ' + data.percentage.toFixed(1) + '%';
+				marks.appendChild(marksP);
+			});
+
 			let contentPlacement = document.getElementById('header').offsetHeight;
 			document.getElementById('content').style.paddingTop = contentPlacement + 'px';
 
-			document.getElementById('start-button').addEventListener('click', function(event) {
+			let questionIndex = 0;
+			let questions = document.querySelectorAll('.quiz-question');
+			let countdown;
+
+			document.getElementById('next-question').addEventListener('click', nextQuestion);
+			document.getElementById('prev-question').addEventListener('click', prevQuestion);
+
+			document.getElementById('submit-quiz').addEventListener('click', submitQuiz);
+
+			if (document.getElementById('start-button')) {
+				document.getElementById('start-button').addEventListener('click', function() {
+					let timeLimit = parseInt(document.getElementById('time').value);
+					socket.emit('start quiz', timeLimit);
+				});
+			}
+
+			let timer = setTimeout(function() {}, 0);
+			let radios = document.querySelectorAll('.form-check-input');
+			for (let radio of radios) {
+				radio.addEventListener('click', function() {
+					let radioName = radio.getAttribute('name');
+					let radioGroup = document.querySelectorAll('.form-check-input[name=' + radioName + ']');
+					for (let radioOption of radioGroup) {
+						radioOption.disabled = true;
+					}
+					clearTimeout(timer);
+					timer = setTimeout(function() {
+						for (let radioOption of radioGroup)	{
+							radioOption.disabled = false;
+						}
+						nextQuestion();
+					}, 400);
+				});
+			}
+
+			document.getElementById('review-button').addEventListener('click', function() {
+				document.getElementById('footer').style.display = "none";
+				for (let question of questions) {
+					question.classList.add('active');
+				}
+				document.getElementById('submit-quiz').style.display = "none";
+				document.getElementById('finish-quiz').classList.remove('none');
+			});
+
+			function goToQuestion(index) {
+				if (index >= 0 && index < questions.length) {
+					questions[questionIndex].classList.remove('active');
+					questions[index].classList.add('active');
+					questionIndex = index;
+				}
+			}
+
+			function nextQuestion() {
+				goToQuestion(questionIndex + 1);
+			}
+
+			function prevQuestion() {
+				goToQuestion(questionIndex - 1);
+			}
+
+			function submitQuiz() {
+				clearInterval(countdown);
+				
+				let responses = [];
+
+				let questions = document.querySelectorAll('.quiz-question');
+				for (let i = 0; i < questions.length; i++) {
+					responses.push(null);
+					let answers = questions[i].querySelectorAll('.quiz-question-answers .form-check-input');
+					for (let j = 0; j < answers.length; j++) {
+						if (answers[j].checked) {
+							responses[i] = j;
+						}
+					}	
+				}
+
+				console.log(responses);
+				let params = 'responses=' + JSON.stringify(responses);
+
+				let xhr = new XMLHttpRequest();
+				xhr.open('POST', '/quiz/mark-quiz');
+				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				xhr.send(params);
+				xhr.onload = function() {
+					if (this.status === 200) {
+						let data = JSON.parse(this.responseText);
+						console.log(data);
+						for (let i = 0; i < questions.length; i++) {
+							let answerIndex = data.answerKey[i];
+							let responseIndex = data.responses[i];
+							let answerLabel = questions[i].querySelector('.form-check:nth-child(' + (answerIndex + 1) + ')');
+							answerLabel.classList.add('correct');
+							if (answerIndex !== responseIndex) {
+								let responseLabel = questions[i].querySelector('.form-check:nth-child(' + (responseIndex + 1) + ')');
+								responseLabel.classList.add('wrong');
+							}
+						}
+						goToQuestion(0);
+						document.getElementById('correct-answers').innerHTML = data.correctAnswers;
+						document.getElementById('total-questions').innerHTML = data.totalQuestions;
+						document.getElementById('grade').innerHTML = data.percentage.toFixed(1) + '%';
+						socket.emit('finish quiz', data);
+					}
+				}
+			}
+
+			function startQuiz(timeLimit) {
 				let timer = document.getElementById('timer');
 				let timerMinutes = document.getElementById('minutes');
 				let timerSeconds = document.getElementById('seconds');
-				let minutes = parseInt(document.getElementById('time').value);
+				let minutes = timeLimit;
 				let seconds = 0;
 
 				timer.classList.remove('hide');
@@ -56,7 +246,7 @@
 				timerMinutes.innerHTML = minutes.toString().padStart(2, '0');
 				timerSeconds.innerHTML = seconds.toString().padStart(2, '0');
 
-				let interval = setInterval(function() {
+				countdown = setInterval(function() {
 					if (seconds === 0) {
 						--minutes;
 						seconds = 59;
@@ -65,21 +255,12 @@
 					}
 					timerMinutes.innerHTML = minutes.toString().padStart(2, '0');
 					timerSeconds.innerHTML = seconds.toString().padStart(2, '0');
-					if (minutes === 0) clearInterval(interval);
-				}, 1000);
-			});
-
-			let radios = document.querySelectorAll('.form-check-input');
-			for (let radio of radios) {
-				radio.addEventListener('click', function() {
-					if (radio.classList.contains('selected')) {
-						radio.checked = false;
-						radio.classList.remove('selected');
-					} else {
-						radio.checked = true;
-						radio.classList.add('selected');
+					if (minutes === 0) {
+						submitQuiz();
 					}
-				});
+				}, 1000);
+				
+				questions[questionIndex].classList.add('active');
 			}
 		</script>
 	</body>

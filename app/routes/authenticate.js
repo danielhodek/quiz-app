@@ -9,6 +9,7 @@ router.post('/signup', function(req, res) {
 		username: req.body.username,
 		password: req.body.password
 	}
+	console.log(userData);
 
 	let promise = User.findOne({ username: userData.username }).exec();
 
@@ -37,7 +38,9 @@ router.post('/login', function(req, res) {
 		password: req.body.password
 	}
 
-	User.findOne({ email: userData.email }, function(err, user) {
+	console.log(userData);
+
+	User.findOne({ username: userData.username }, function(err, user) {
 		if (user) {
 			bcrypt.compare(userData.password, user.password, function(err, result) {
 				if (result === true) {

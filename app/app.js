@@ -16,7 +16,7 @@ var Quiz = require('./model/quiz');
 
 const PORT = 3000;
 
-mongoose.connect('mongodb://localhost/quiz');
+mongoose.connect('mongodb://localhost/quiz?socketTimeoutMS=90000');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -35,6 +35,7 @@ io.use(sharedSession(session, {
 	autoSave: true
 }));
 
+app.set('io', io);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -75,11 +76,37 @@ io.on('connection', function(socket) {
 	console.log('a user connected');
 	socket.handshake.session.socketId = socket.id;
 	socket.handshake.session.save();
+	
 	socket.on('disconnect', function() {
 		console.log('a user disconnected');
 	});
+
+	socket.on('join quiz', function() {
+		socket.join('' + socket.handshake.session.quizId);
+	});
+
+	socket.on('start quiz', function(timeLimit) {
+		io.emit('remove quiz', socket.handshake.session.quizId);
+		io.to('' + socket.handshake.session.quizId).emit('start quiz', timeLimit);
+	});
+
+	socket.on('finish quiz', function(data) {
+		data.username = socket.handshake.session.username;
+		socket.to('' + socket.handshake.session.quizId).emit('show marks', data);
+	});
+
+	socket.on('disconnecting', function() {
+		let username = socket.handshake.session.username;
+		console.log(socket.handshake.session.quizId);
+		Object.keys(socket.rooms).forEach(function(room, idx) {
+			if (idx != 0) {
+				io.to(room).emit('leave room', username);
+			}
+		});
+	});
 });
 
+
 http.listen(PORT, function() {
-	console.log('listening on *:3000');
+	console.log('listening on *:' + PORT);
 });

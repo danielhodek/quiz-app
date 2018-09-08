@@ -19,12 +19,38 @@
 				</div>
 				<hr class="divider my-3">
 				<h4>Notifications</h4>
+				<div id="quizzes">
+				</div>
 			</div>
 		</main>
 		<script src='/js/navbar.js'></script>
 		<script src='/socket.io/socket.io.js'></script>
 		<script>
+			window.addEventListener("pageshow", function(event) {
+				var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
+				if ( historyTraversal ) {
+					// Handle page restore.
+					window.location.reload();
+				}
+			});
+
 			var socket = io();
+
+			socket.on('new quiz', function(data) {
+				console.log(data);
+				let quiz = data.quiz;
+				let templates = data.templates;
+				let quizzes = document.getElementById('quizzes');
+				let newQuiz = htmlToElement(ejs.render(templates.template1, { quiz: quiz }));
+				quizzes.appendChild(newQuiz);
+			});
+
+			socket.on('remove quiz', function(quizId) {
+				let selector = 'div[data-id="' + quizId + '"]';
+				console.log(selector);
+				let quiz = document.querySelector(selector);
+				quiz.remove();
+			});
 		</script>
 	</body>
 </html>
