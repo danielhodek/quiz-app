@@ -16,7 +16,7 @@ var Quiz = require('./model/quiz');
 
 const PORT = 3000;
 
-mongoose.connect('mongodb://localhost/quiz?socketTimeoutMS=90000');
+mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds249942.mlab.com:49942/quiz');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
