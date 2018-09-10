@@ -55,7 +55,7 @@ app.use(session);
 // Routes
 app.use(require('./routes/authentication'));
 app.use(require('./routes/profile'));
-app.use(require('/routes/quiz'));
+app.use(require('./routes/quiz'));
 
 // Error handling
 app.use(function(err, req, res, next) {

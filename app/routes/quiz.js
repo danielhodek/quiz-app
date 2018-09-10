@@ -98,3 +98,5 @@ function getMarks(answerKey, responses) {
 		responses: responses
 	}
 }
+
+module.exports = router;
