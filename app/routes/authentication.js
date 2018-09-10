@@ -9,11 +9,8 @@ router.post('/signup', function(req, res) {
 		username: req.body.username,
 		password: req.body.password
 	}
-	console.log(userData);
 
-	let promise = User.findOne({ username: userData.username }).exec();
-
-	promise.then(function(user) {
+	User.findOne({ username: userData.username }, function(err, user) {
 		if (user) {
 			return res.send({
 				success: false,
@@ -37,8 +34,6 @@ router.post('/login', function(req, res) {
 		username: req.body.username,
 		password: req.body.password
 	}
-
-	console.log(userData);
 
 	User.findOne({ username: userData.username }, function(err, user) {
 		if (user) {

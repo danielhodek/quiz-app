@@ -15,8 +15,9 @@ var User = require('./model/user');
 var Quiz = require('./model/quiz');
 
 const PORT = process.env.PORT || 8080;
-const URL = 'https://quiz-site-dhodek.herokuapp.com/'
+const URL = 'https://dh-quiz-creator.herokuapp.com/'
 
+// Database connection
 mongoose.connect('mongodb://danielhodek:Mecury72@ds249942.mlab.com:49942/quiz');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -24,6 +25,7 @@ db.once('open', function() {
 	console.log("we're connected!");
 });
 
+// Session handling
 session = session({
 	secret: 'keyboard cat',
 	resave: true,
@@ -36,17 +38,26 @@ io.use(sharedSession(session, {
 	autoSave: true
 }));
 
-app.set('io', io);
+// Locals (accesible from templates)
 app.locals.url = URL;
+app.locals.letters = ['a','b','c','d','e'];
+
+app.set('io', io);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+// Middleware
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session);
 
-app.use(require('./routes/authenticate'));
+// Routes
+app.use(require('./routes/authentication'));
 app.use(require('./routes/profile'));
+app.use(require('/routes/quiz'));
+
+// Error handling
 app.use(function(err, req, res, next) {
 	res.status(err.status || 500);
 	res.send(err.message);	
