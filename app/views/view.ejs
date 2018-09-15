@@ -4,16 +4,16 @@
 	<body>
 		<div id="modal-add" class="modal">
 			<div class="margin-auto card col-10 col-xl-5 mb-4">
-				<div class="card-header flex-row justify-content-between align-items-center">
+				<div class="card-header flex-r justify-between items-center">
 					<h5 class="card-title mb-0">Add Question</h5>
-					<button type="button" class="modal-toggle modal-close" data-target="modal-add"><i class="material-icons md-18">clear</i></button>
+					<button class="modal-toggle modal-close" data-target="modal-add"><i class="material-icons md-18">clear</i></button>
 				</div>
 				<div class="card-body">
 					<form id="create" class="text-center">
-						<textarea id="question" class="form-control mb-2" rows="2" placeholder="Enter Question" required autofocus></textarea>
-						<input id="correct-answer" type="text" class="correct form-control mb-2" placeholder="Correct Answer" required></input>	
+						<textarea id="question" class="input mb-2" rows="2" placeholder="Enter Question" required autofocus></textarea>
+						<input id="correct-answer" type="text" class="correct input mb-2" placeholder="Correct Answer" required></input>	
 						<div id="wrong-answers">
-							<input id="wrong-answer" type="text" class="wrong form-control mb-2" placeholder="Wrong Answer" required></input>
+							<input id="wrong-answer" type="text" class="wrong input mb-2" placeholder="Wrong Answer" required></input>
 						</div>
 					</form>
 				</div>
@@ -23,11 +23,14 @@
 			</div>
 		</div>
 		<%- include partials/header.ejs %>
-		<main class="fixed-container">
+		<main id="content" class="fixed-container">
 			<div class="container">
-				<a href="/profile" class="link mb-2 py-1">&lsaquo; Back</a>
+				<a id="back" href="/profile" class="link mb-2 py-1">&lsaquo; Back</a>
 				<h3 class="mb-2"><%= quizTitle %></h3>
-				<a href="/quiz/<%= quizId %>" class="btn btn-primary mb-2 mr-2">Start Quiz</a><button id="add" class="modal-toggle btn btn-secondary mb-2" data-target="modal-add">Add Question <i class="material-icons md-18">add</i></button>
+				<div class="btn-row">
+					<a href="/quiz/<%= quizId %>" class="btn btn-1 mb-2">Start Quiz</a>
+					<button id="add" class="modal-toggle btn btn-2 mb-2" data-target="modal-add">Add Question <i class="material-icons md-18">add</i></button>
+				</div>	
 				<hr class="divider my-3">
 				<h3>Questions</h3>
 				<div id="questions">
@@ -40,7 +43,7 @@
 		<script src='/js/navbar.js'></script>
 		<script src='/js/modal.js'></script>
 		<script>
-			let templates = <%- JSON.stringify(templates) %>
+			let templates = <%- JSON.stringify(templates) %>;
 
 			let wrongAnswers = document.getElementById('wrong-answers');
 			let wrongAnswer = document.getElementById('wrong-answer');
@@ -66,7 +69,7 @@
 			document.getElementById('create-button').addEventListener('click', function() {
 				let question = document.getElementById('question');
 				let correctAnswer = document.getElementById('correct-answer');
-				let wrongAnswers = document.querySelectorAll('#wrong-answers .form-control');	
+				let wrongAnswers = document.querySelectorAll('#wrong-answers .input');	
 
 				let params = 'question='+question.value+'&answers=';
 				let answers = [];

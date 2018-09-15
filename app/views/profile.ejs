@@ -3,26 +3,42 @@
 	<% include partials/head.ejs %>
 	<body>
 		<% include partials/header.ejs %>
-		<main class="fixed-container">
-			<div class="container">
-				<h5 class="text-right my-3"><%= name %></h5>
-				<div class="row-sm">
-					<div class="col-sm-4">
-						<a class="btn btn-secondary flex-row mb-2 py-2" href="/library"><p class="mr-2">Library</p><i class="material-icons md-24">view_list</i></a>
+		<main id="content" class="container">
+			<h5 id="user-name" class="text-right my-3 flex-r items-center"><i class="material-icons md-36 mr-2">face</i><%= name %></h5>
+			<div class="row flex-r items-stretch">
+				<div class="col-sm-4">
+					<div id="profile-library" class="card py-1 mb-3">
+						<div class="card-body text-center">
+							<a class="btn col-sm-10 col-6 blk btn-2 mb-1" href="/library"><span class="mr-2">Library</span><i class="material-icons md-24">view_list</i></a>
+							<p class="text-small text-muted">View and edit your created quizzes</p>
+						</div>
 					</div>
-					<div class="col-sm-4">
-						<a class="btn btn-secondary flex-row mb-2 py-2" href="#" dis><p class="mr-2">Friends</p><i class="material-icons md-24">group_add</i></a>
-					</div>
-					<div class="col-sm-4">
-						<a class="btn btn-primary flex-row mb-2 py-2" href="/create"><p class="mr-2">Create</p><i class="material-icons md-24">create</i></a>
-					</div>		
 				</div>
-				<hr class="divider my-3">
-				<h4>Notifications</h4>
-				<div id="quizzes">
+				<div class="col-sm-4">
+					<div id="profile-friends" class="card py-1 mb-3">
+						<div class="card-body text-center">
+							<a class="btn col-sm-10 col-6 blk btn-2 mb-1" href="#" dis><span class="mr-2">Friends</span><i class="material-icons md-24">group_add</i></a>
+							<p class="text-small text-muted">Add and view friends</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div id="profile-create" class="card py-1 mb-3">
+						<div class="card-body text-center">
+							<a class="btn col-sm-10 col-6 blk btn-2 mb-1" href="/create"><span class="mr-2">Create</span><i class="material-icons md-24">create</i></a>
+							<p class="text-small text-muted">Create a new multiple-choice quiz</p>
+						</div>
+					</div>	
 				</div>
 			</div>
+			<hr class="divider my-3">
+			<h4>Quiz Notifications</h4>
+			<div id="quizzes">
+			</div>
 		</main>
+		<div class="bg-color">
+			<% include partials/footer.ejs %>
+		</div>
 		<script src='/js/navbar.js'></script>
 		<script src='/socket.io/socket.io.js'></script>
 		<script>

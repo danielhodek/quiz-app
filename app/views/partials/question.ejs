@@ -1,12 +1,20 @@
-<div class="card mb-3">
+<div class="card mb-3 bg-dark">
 	<div class="card-body text-center">
-		<h5><%= question.text %></h5>
-	</div>
-	<ul class="list-group list-group-flush">
+		<h6 class="card-subtitle mb-1">Question</h6>
+		<p class="mb-3"><%= question.text %></p>
+		<h6 class="card-subtitle mb-1">Correct Answer</h6>
 		<% for (let answer of question.answers) { %>
-			<li class="list-item <% if (answer.correct) { %>list-group-item-success<% } else { %>list-group-item-danger<% } %>"><%= answer.text %></li>
+			<% if (answer.correct) { %>
+				<p class="mb-3"><%= answer.text %></p>
+			<% } %>
 		<% } %>
-	</ul>
+		<h6 class="card-subtitle">Incorrect Answers</h6>
+		<ul class="list-group list-group-flush">
+			<% for (let answer of question.answers) { %>
+				<li class="list-item bg-dark"><%= answer.text %></li>
+			<% } %>
+		</ul>
+	</div>
 	<div class="card-body">
 		<button class="link fl delete" onclick="deleteQuestion(event)" data-id="<%= question._id %>">Delete</button>
 	</div>

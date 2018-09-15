@@ -23,7 +23,7 @@ router.get('/quiz', function(req, res) {
 			quiz: quiz		
 		}
 
-		if (quiz.author.username === req.session.username) {
+		if (quiz.author._id === req.session.userId) {
 			quizData.author = true;
 
 			let questions = [].concat(quiz.toObject().questions);
@@ -33,6 +33,7 @@ router.get('/quiz', function(req, res) {
 			}
 	
 			req.session.questions = shuffle(questions);
+			quizData.questions = questions;
 
 			io.emit('new quiz', {
 				quiz: quizData.quiz,
@@ -42,6 +43,7 @@ router.get('/quiz', function(req, res) {
 		} else {
 			quizData.author = false;
 			io.to('' + req.session.quizId).emit('new user', req.session.username);
+			Sessions
 		}
 
 		res.render('quiz', quizData);	

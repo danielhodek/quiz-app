@@ -2,21 +2,21 @@
 <html>
 	<% include partials/head.ejs %>
 	<body>
-		<main class="center text-center">
-			<form id="login" class="form-signin">
+		<main class="center">
+			<form id="log-in" class="form text-center">
 				<i class="material-icons md-64">school</i>
 				<h2>Please log in</h2>
 				<fieldset>
-					<input type="text" id="username" name="username" class="form-control line" placeholder="Username" required>
-					<div id="username-error" class="form-error"></div>
-					<input type="password" id="password" name="password" class="form-control line" placeholder="Password" required>
-					<div id="password-error" class="form-error"></div>
+					<input type="text" id="username" name="username" class="input input-line" placeholder="Username" required>
+					<div id="username-error" class="input-error"></div>
+					<input type="password" id="password" name="password" class="input input-line" placeholder="Password" required>
+					<div id="password-error" class="input-error"></div>
 				</fieldset>
-				<button type="submit" class="btn btn-success btn-lg">Log in</button>
+				<button type="submit" class="btn btn-lg btn-submit">Log in</button>
 			</form>
 		</main>
 		<script>
-			document.getElementById('login').addEventListener('submit', function(event) {
+			document.getElementById('log-in').addEventListener('submit', function(event) {
 				event.preventDefault();
 
 				let username = document.getElementById('username');

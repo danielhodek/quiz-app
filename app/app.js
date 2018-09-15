@@ -14,11 +14,13 @@ var sharedSession = require('express-socket.io-session');
 var User = require('./model/user');
 var Quiz = require('./model/quiz');
 
-const PORT = process.env.PORT || 8080;
-const URL = 'https://dh-quiz-creator.herokuapp.com/'
+// Local 
+const PORT = 3000;
+const URL = 'http://localhost:' + PORT + '/';
+const MONGODB = 'mongodb://localhost:27017/quiz';
 
 // Database connection
-mongoose.connect('mongodb://danielhodek:Mecury72@ds249942.mlab.com:49942/quiz');
+mongoose.connect(MONGODB);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -64,6 +66,7 @@ app.use(function(err, req, res, next) {
 });
 
 app.get('/', function(req, res) {
+	console.log('hello');
 	if (req.session) {
 		req.session.destroy();
 	}

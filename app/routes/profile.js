@@ -75,8 +75,8 @@ router.get('/view', function(req, res) {
 			questions: quiz.questions,
 			name: null,
 			links: [
-				{ name: 'Profile', href: '/profile' },
-				{ name: 'Logout', href: '/' }
+				{ name: 'Profile', route: '/profile' },
+				{ name: 'Logout', route: '/' }
 			],
 			templates: templates
 		});

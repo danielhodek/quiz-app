@@ -8,7 +8,27 @@
 		<% } %>
 	</title>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="css/style.css">
 	<script src='/js/functions.js'></script>
 	<script src='/js/ejs.min.js'></script>
+	<script>
+		window.onload = function() {
+			let header = document.getElementById('fixed-header');
+			let footer = document.getElementById('fixed-footer');
+			let content = document.getElementById('content');
+
+			if (content) {
+				if (header) {
+					let paddingTop = header.offsetHeight;
+					content.style.paddingTop = paddingTop + 'px';
+				}
+				if (footer) {
+					let paddingBottom = footer.offsetHeight;
+					content.style.paddingBottom = paddingBottom + 'px';
+				}
+			}
+		}
+	</script>
 </head>

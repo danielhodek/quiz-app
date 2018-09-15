@@ -1,6 +1,6 @@
-<header class="fixed-header">
+<header id="fixed-header">
 	<nav class="navbar bg-dark">
-		<a class="navbar-brand" href="/">Testing</a>
+		<a class="navbar-brand flex-r items-center" href="/"><i class="material-icons md-24 mr-2">check_box</i>Testing</a>
 		<% if (links) { %>
 			<button class="toggle" data-target="nav">
 				<i class="material-icons md-36">menu</i>
@@ -10,7 +10,7 @@
 			<ul class="nav">
 				<% if (links) { %>
 					<% for (let link of links) { %>
-						<li><a href="<%= link.href %>"><%= link.name %></a></li>
+						<li><a href="<%= link.route %>"><%= link.name %></a></li>
 					<% } %>
 				<% } %>
 			</ul>

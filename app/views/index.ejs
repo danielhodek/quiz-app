@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<% include partials/head.ejs %>
-	<body>
+	<body class="bg-color">
 		<% include partials/header.ejs %>
-		<main class="fixed-container">
+		<main id="content" class="bg-light home">
 			<% include partials/carousel.ejs %>
-			<div class="container text-center">
-				<p>	
-					<a class="btn btn-outline-secondary btn-lg" href="/signup">Sign Up</a><span class="text-btn-align"> or </span><a class="btn btn-outline-secondary btn-lg" href="/login">Log In</a>
-				<p>
+			<div class="container flex-r items-center justify-center">
+				<a class="btn btn-lg" href="/signup">Sign Up</a><span class="text-big mx-2">or</span><a class="btn btn-lg" href="/login">Log In</a>
 			</div>
 		</main>
 		<% include partials/footer.ejs %>

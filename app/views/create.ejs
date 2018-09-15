@@ -3,15 +3,15 @@
 	<%- include partials/head.ejs %>
 	<body>
 		<%- include partials/header.ejs %>
-		<main class="fixed-container">
+		<main id="content" class="fixed-container">
 			<div class="container">
 				<div class="margin-auto">
-					<a href="/profile" class="link mb-2 py-1">&lsaquo; Back</a></div>
+					<a id="back" href="/profile" class="link mb-2 py-1">&lsaquo; Back</a></div>
 					<h2 class="mb-3">Name you quiz</h2>
 					<form id="create">
-						<input type="text" id="title" class="form-control line" placeholder="Quiz Title" required autofocus>
-						<div id="title-error" class="form-error mb-2"></div>
-						<button type="submit" class="btn btn-primary">Create!</button>
+						<input type="text" id="title" class="input input-line" placeholder="Quiz Title" required autofocus>
+						<div id="title-error" class="form-error mb-4"></div>
+						<button type="submit" class="btn btn-lg btn-submit">Create!</button>	
 					</form>
 				</div>
 			</div>
