@@ -16,7 +16,7 @@ var Quiz = require('./model/quiz');
 
 // Remote
 const PORT = process.env.PORT || 8080;
-const URL = 'https://dh-quiz-creator.herokuapp.com/';
+const URL = 'https://dh-testing.herokuapp.com/';
 const MONGODB = 'mongodb://danielhodek:Mecury72@ds249942.mlab.com:49942/quiz';
 
 // Database connection
