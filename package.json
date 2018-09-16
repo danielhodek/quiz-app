@@ -1,6 +1,6 @@
 {
   "name": "nodejs-test",
-  "version": "8.9.4",
+  "version": "7.x.x",
   "description": "A test app",
   "main": "app/app.js",
   "scripts": {
