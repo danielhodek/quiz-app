@@ -16,7 +16,7 @@ var Quiz = require('./model/quiz');
 
 // Local 
 const PORT = 3000;
-const URL = 'http://localhost:' + PORT + '/';
+const URL = 'http://192.168.0.16:' + PORT + '/';
 const MONGODB = 'mongodb://localhost:27017/quiz';
 
 // Database connection
@@ -44,6 +44,7 @@ io.use(sharedSession(session, {
 app.locals.url = URL;
 app.locals.letters = ['a','b','c','d','e'];
 
+app.set('db', db);
 app.set('io', io);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

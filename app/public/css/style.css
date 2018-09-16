@@ -57,12 +57,12 @@
 .btn-submit {
 	color: #fff;
 	background: linear-gradient(135deg, #489cea 0%, #c021e4 100%);
-	border-color: transparent;
+	border: none;
 }
 .btn-submit:hover {
 	color: #fff;
-	background: linear-gradient(135deg, #c021e4 0%, #489cea 100%);
-	border-color: transparent;
+	background: linear-gradient(135deg, #397cbb 0%, #7d1794 100%);
+	border-color: none;
 }
 .btn-control {
 	border: 1px solid rgba(0, 0, 0, .125);
@@ -106,6 +106,10 @@
 }
 #quizzes {
 	min-height: 28rem;
+}
+.number-input input {
+	color: #212529 !important;
+	font-size: 1.5rem !important;
 }
 .text-muted {
 	color: #6c757d !important;

@@ -5,24 +5,24 @@
 		<div id="modal-start" class="modal modal-show">
 			<div class="margin-auto card col-10 col-xl-5">
 				<% if (author) { %> 
-					<div class="card-header flex-row justify-content-center align-items-center">
+					<div class="card-header flex-r justify-center items-center">
 						<h5 class="card-title mb-0">Quiz Details</h5>
 					</div>
-					<div class="card-body flex-column align-items-center">
+					<div class="card-body flex-c items-center">
 						<label for="minutes">Time Limit <span class="text-muted">(Minutes)</span></label>
-						<div class="input-group col-sm-3 number-picker mb-3" data-min="5" data-max="60" data-step="5">
-							<div class="input-group-text"><button type="button" class="decrement"><i class="material-icons md-18">remove</i></button></div>
-							<input type="text" id="time" class="text-center form-control" value="5" disabled>
-							<div class="input-group-text"><button type="button" class="increment"><i class="material-icons md-18">add</i></button></div>
+						<div class="input-pair col-sm-5 number-input mb-3" data-min="5" data-max="60" data-step="5">
+							<div class="input-pair-text"><button class="decrement"><i class="material-icons md-18">remove</i></button></div>
+							<input id="time" type="text" class="text-center input" value="5" disabled>
+							<div class="input-pair-text"><button class="increment"><i class="material-icons md-18">add</i></button></div>
 						</div>
 						<h6 class="card-section">Users</h6>
 						<div id="users"></div>
 					</div>
 					<div class="card-footer text-center">
-						<button id="start-button" class="modal-toggle btn btn-primary" data-target="modal-start">Start!</button>
+						<button id="start-button" class="modal-toggle btn btn-1" data-target="modal-start">Start!</button>
 					</div>
 				<% } else { %>
-					<div class="card-body flex-column align-items-center">
+					<div class="card-body flex-c items-center">
 						<p>Waiting for quiz to begin...</p>
 					</div>
 				<% } %>
@@ -31,57 +31,53 @@
 
 		<div id="modal-review" class="modal">
 			<div class="margin-auto card col-10 col-xl-5">
-				<div class="card-header flex-row justify-content-center align-items-center">
+				<div class="card-header flex-r justify-center items-center">
 					<h5 class="card-title mb-0">Quiz Results</h5>
 				</div>
-				<div class="card-body px-4 flex-column">
+				<div class="card-body px-4 flex-c">
 					<div class="review-info"><h6 class="review-label">Score</h6><p class="review-text"><span id="correct-answers"></span>/<span id="total-questions"></span></p></div>
 					<div class="review-info"><h6 class="review-label">Grade</h6><p id="grade" class="review-text"></p></div>
-					<div id="marks">
-
-					</div>
+					<div id="marks"></div>
 				</div>
 				<div class="card-footer text-center">
-					<button id="review-button" class="modal-toggle btn btn-primary" data-target="modal-review">Review Quiz</button>
+					<button id="review-button" class="modal-toggle btn btn-1" data-target="modal-review">Review Quiz</button>
 				</div>
 			</div>
 		</div>
 
-		<header id="header" class="fixed-header py-3 px-3 quiz-header flex-row justify-content-between align-items-center">
+		<header id="fixed-header" class="fixed-header py-3 px-3 quiz-header flex-r justify-between items-center bg-dark">
 			<h3 class="mb-0"><%= quiz.title %></h3>
 			<div id="timer" class="hide"><span id="minutes"></span>:<span id="seconds"></span></div>
-			<button id="submit-quiz" class="btn btn-lg btn-primary modal-toggle" data-target="modal-review">Submit</button>
-			<a href="/profile" id="finish-quiz" class="btn btn-lg btn-primary none">Done</a>
+			<button id="submit-quiz" class="btn btn-lg btn-submit modal-toggle" data-target="modal-review">Submit</button>
+			<a href="/profile" id="finish-quiz" class="btn btn-lg btn-submit none">Done</a>
 		</header>
 
-		<main id="content" class="container">
-			<div class="quiz-container py-4">
-				<% for (let i = 0; i < questions.length; i++) { %>
-					<div class="quiz-question col-sm-10 margin-auto">
-						<p class="quiz-question-text mb-3"><%= i + 1 %>. <%= questions[i].text %></p>
-						<div class="quiz-question-answers">
-							<% for (let j = 0; j < questions[i].answers.length; j++) { %>
-								<div class="form-check">
-									<input class="form-check-input" type="radio" name="question<%= i %>" id="question<%= i %>-<%= j %>" value="<%= j %>">
-									<label class="form-check-label py-2 flex-row align-items-center" for="question<%= i %>-<%= j %>">
-										<div class="quiz-question-letter mr-3"><%= letters[j] %></div> 
-										<div class="quiz-question-answer"><%= questions[i].answers[j].text %></div>
-									</label>
-								</div>
-							<% } %>
-						</div>
+		<main id="content" class="container mt-4 quiz">
+			<% for (let i = 0; i < questions.length; i++) { %>
+				<div class="quiz-question col-sm-10 margin-auto">
+					<p class="quiz-question-text mb-3"><%= i + 1 %>. <%= questions[i].text %></p>
+					<div class="quiz-question-answers">
+						<% for (let j = 0; j < questions[i].answers.length; j++) { %>
+							<div class="check">
+								<input class="check-input" type="radio" name="question<%= i %>" id="question<%= i %>-<%= j %>" value="<%= j %>">
+								<label class="check-label py-2 flex-r items-start" for="question<%= i %>-<%= j %>">
+									<div class="quiz-question-letter mr-3"><%= letters[j] %></div> 
+									<div class="quiz-question-answer"><%= questions[i].answers[j].text %></div>
+								</label>
+							</div>
+						<% } %>
 					</div>
-				<% } %>
-			</div>
+				</div>
+			<% } %>
 		</main>
 
-		<footer id="footer" class="fixed-footer py-3 px-3 quiz-footer flex-row justify-content-between">
+		<footer id="fixed-footer" class="py-3 px-3 quiz-footer flex-r justify-between">
 			<button id="prev-question" class="btn btn-control"><i class="material-icons md-48">arrow_left</i></button>
 			<button id="next-question" class="btn btn-control"><i class="material-icons md-48">arrow_right</i></button>
 		</footer>
 
 		<script src="js/modal.js"></script>
-		<script src="js/number.js"></script>
+		<script src="js/number-input.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
 
@@ -101,6 +97,7 @@
 			});
 
 			socket.on('start quiz', function(timeLimit) {
+				document.body.classList.remove('no-scroll');
 				document.getElementById('modal-start').classList.remove('modal-show');
 				startQuiz(timeLimit);
 			});
@@ -125,9 +122,6 @@
 				marks.appendChild(marksP);
 			});
 
-			let contentPlacement = document.getElementById('header').offsetHeight;
-			document.getElementById('content').style.paddingTop = contentPlacement + 'px';
-
 			let questionIndex = 0;
 			let questions = document.querySelectorAll('.quiz-question');
 			let countdown;
@@ -145,11 +139,11 @@
 			}
 
 			let timer = setTimeout(function() {}, 0);
-			let radios = document.querySelectorAll('.form-check-input');
+			let radios = document.querySelectorAll('.check-input');
 			for (let radio of radios) {
 				radio.addEventListener('click', function() {
 					let radioName = radio.getAttribute('name');
-					let radioGroup = document.querySelectorAll('.form-check-input[name=' + radioName + ']');
+					let radioGroup = document.querySelectorAll('.check-input[name=' + radioName + ']');
 					for (let radioOption of radioGroup) {
 						radioOption.disabled = true;
 					}
@@ -164,7 +158,7 @@
 			}
 
 			document.getElementById('review-button').addEventListener('click', function() {
-				document.getElementById('footer').style.display = "none";
+				document.getElementById('fixed-footer').style.visibility = "hidden";
 				for (let question of questions) {
 					question.classList.add('active');
 				}
@@ -189,6 +183,7 @@
 			}
 
 			function submitQuiz() {
+				console.log('submitting');
 				clearInterval(countdown);
 				
 				let responses = [];
@@ -196,7 +191,8 @@
 				let questions = document.querySelectorAll('.quiz-question');
 				for (let i = 0; i < questions.length; i++) {
 					responses.push(null);
-					let answers = questions[i].querySelectorAll('.quiz-question-answers .form-check-input');
+					let answers = questions[i].querySelectorAll('.quiz-question-answers .check-input');
+					console.log(answers);
 					for (let j = 0; j < answers.length; j++) {
 						if (answers[j].checked) {
 							responses[i] = j;
@@ -218,10 +214,10 @@
 						for (let i = 0; i < questions.length; i++) {
 							let answerIndex = data.answerKey[i];
 							let responseIndex = data.responses[i];
-							let answerLabel = questions[i].querySelector('.form-check:nth-child(' + (answerIndex + 1) + ')');
+							let answerLabel = questions[i].querySelector('.check:nth-child(' + (answerIndex + 1) + ')');
 							answerLabel.classList.add('correct');
 							if (answerIndex !== responseIndex) {
-								let responseLabel = questions[i].querySelector('.form-check:nth-child(' + (responseIndex + 1) + ')');
+								let responseLabel = questions[i].querySelector('.check:nth-child(' + (responseIndex + 1) + ')');
 								responseLabel.classList.add('wrong');
 							}
 						}

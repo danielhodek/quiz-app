@@ -1160,8 +1160,8 @@ label {
   ========================================
 */
 
-.quiz-container {
-	margin-bottom: 5rem;
+.quiz {
+	min-height: 100vh;
 }
 .quiz-header {
 	background-color: #f8f9fa;
@@ -1177,11 +1177,11 @@ label {
 .quiz-question:not(.active) {
 	display: none;
 }
-.quiz-question .form-check {
+.quiz-question .check {
 	padding-left: 0;
 	border-bottom: 1px solid rgba(0, 0, 0, .125);
 }
-.quiz-question .form-check-input {
+.quiz-question .check-input {
 	display: none;
 }
 .quiz-question-letter {
@@ -1195,6 +1195,7 @@ label {
 	font-size: 1rem;
 	text-transform: capitalize;
 	transition: color 50ms, background 50ms ease-in;
+	flex-shrink: 0;
 }
 .correct .quiz-question-letter {
 	color: #fff !important;
@@ -1210,12 +1211,13 @@ label {
 	font-size: 1.25rem;
 	font-weight: 500;
 }
-.form-check-input:checked + .form-check-label .quiz-question-letter {
+.check-input:checked + .check-label .quiz-question-letter {
 	color: white;
 	background: rgba(0, 0, 0, .5);
 }
-.form-check-input:checked + .form-check-label .quiz-question-answer {
+.check-input:checked + .check-label .quiz-question-answer {
 	font-weight: 600;
+	word-break: break-all;
 }
 .review-label {
 	font-size: 1rem;

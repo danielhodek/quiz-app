@@ -20,31 +20,30 @@ router.get('/quiz', function(req, res) {
 	Quiz.findById(req.session.quizId).populate('author').exec(function(err, quiz) {
 		let quizData = {
 			pageTitle: 'Quiz',
-			quiz: quiz		
+			quiz: quiz	
 		}
 
-		if (quiz.author._id === req.session.userId) {
+		if (req.session.userId == quiz.author._id) {
 			quizData.author = true;
-
-			let questions = [].concat(quiz.toObject().questions);
-
-			for (let question of questions) {
-				shuffle(question.answers);
-			}
-	
-			req.session.questions = shuffle(questions);
-			quizData.questions = questions;
-
-			io.emit('new quiz', {
-				quiz: quizData.quiz,
-				templates: templates
-			});
-
 		} else {
 			quizData.author = false;
-			io.to('' + req.session.quizId).emit('new user', req.session.username);
-			Sessions
+			io.emit('new user', req.session.username);
 		}
+
+		let questions = [].concat(quiz.toObject().questions);
+
+		for (let question of questions) {
+			shuffle(question.answers);
+		}
+
+		shuffle(questions);
+		req.session.questions = questions;
+		quizData.questions = questions;
+
+		io.emit('new quiz', {
+			quiz: quizData.quiz,
+			templates: templates
+		});
 
 		res.render('quiz', quizData);	
 	});
