@@ -14,10 +14,10 @@ var sharedSession = require('express-socket.io-session');
 var User = require('./model/user');
 var Quiz = require('./model/quiz');
 
-// Local 
-const PORT = 3000;
-const URL = 'http://192.168.0.16:' + PORT + '/';
-const MONGODB = 'mongodb://localhost:27017/quiz';
+// Remote
+const PORT = process.env.PORT || 8080;
+const URL = 'https://dh-quiz-creator.herokuapp.com/';
+const MONGODB = 'mongodb://danielhodek:Mecury72@ds249942.mlab.com:49942/quiz';
 
 // Database connection
 mongoose.connect(MONGODB);
