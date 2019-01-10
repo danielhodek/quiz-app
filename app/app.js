@@ -17,7 +17,7 @@ var Quiz = require('./model/quiz');
 // Remote
 const PORT = process.env.PORT || 8080;
 const URL = 'https://danielhodek-testing.herokuapp.com/';
-const MONGODB = 'mongodb://<dbuser>:<dbpassword>@ds028540.mlab.com:28540/danielhodek-testing';
+const MONGODB = 'mongodb://admin:Admin94@ds028540.mlab.com:28540/danielhodek-testing';
 
 // Database connection
 mongoose.connect(MONGODB);
