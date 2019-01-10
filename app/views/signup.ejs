@@ -20,30 +20,20 @@
 		<script>
 			document.getElementById('sign-up').addEventListener('submit', function(event) {
 				event.preventDefault();
-
-				let name = document.getElementById('name');
-				let username = document.getElementById('username');
-				let password = document.getElementById('password');
-				let nameError = document.getElementById('name-error');
-				let usernameError = document.getElementById('username-error');
-				let passwordError = document.getElementById('password-error');
-
-				let params = 'name='+name.value+'&username='+username.value+'&password='+password.value;
-
-				let xhr = new XMLHttpRequest();
-				xhr.open('POST', '/signup');
-				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-				xhr.send(params);
-				xhr.onload = function() {
-					if (this.status === 200) {
-						let data = JSON.parse(this.responseText);
-						if (data.success === true) {
-							window.location.href = '<%= url %>' + 'profile';
-						} else {
-							if (data.errors.username) usernameError.innerHTML = data.errors.username;
-						}
+				[, ,], 
+				ajaxPost('/signup', {
+					content: [
+						dom('#name'),
+						dom('#username'),
+						dom('#password')
+					],
+					success: function() {
+						window.location.href = '<%= url %>' + 'profile';
+					},
+					error: function() {
+						dom('#username-error').innerHTML = this.data.errors.username;
 					}
-				}
+				});
 			});
 
 			document.getElementById('username').addEventListener('focus', function() {
