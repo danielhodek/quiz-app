@@ -14,9 +14,8 @@ var sharedSession = require('express-socket.io-session');
 var User = require('./model/user');
 var Quiz = require('./model/quiz');
 
-// Remote
+var url;
 const PORT = process.env.PORT || 8080;
-const URL = 'https://danielhodek-testing.herokuapp.com/';
 const MONGODB = 'mongodb://admin:Admin94@ds028540.mlab.com:28540/danielhodek-testing';
 
 // Database connection
@@ -41,7 +40,7 @@ io.use(sharedSession(session, {
 }));
 
 // Locals (accesible from templates)
-app.locals.url = URL;
+app.locals.url = url;
 app.locals.letters = ['a','b','c','d','e'];
 
 app.set('db', db);
@@ -67,7 +66,8 @@ app.use(function(err, req, res, next) {
 });
 
 app.get('/', function(req, res) {
-	console.log('hello');
+	url = req.protocol + '://' + req.get('host') + req.originalUrl;
+	console.log(url);
 	if (req.session) {
 		req.session.destroy();
 	}
