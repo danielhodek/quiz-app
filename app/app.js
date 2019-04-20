@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var config = require('./config-json');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
@@ -16,7 +17,7 @@ var Quiz = require('./model/quiz');
 
 var url;
 const PORT = process.env.PORT || 8080;
-const MONGODB = 'mongodb://admin1:admin1@ds028540.mlab.com:28540/danielhodek-testing';
+const MONGODB = config.connectionString;
 
 // Database connection
 mongoose.connect(MONGODB);
@@ -28,7 +29,7 @@ db.once('open', function() {
 
 // Session handling
 session = session({
-	secret: 'keyboard cat',
+	secret: config.secret,
 	resave: true,
 	saveUninitialized: true,
 	store: new MongoStore({
@@ -122,7 +123,6 @@ io.on('connection', function(socket) {
 		});
 	});
 });
-
 
 http.listen(PORT, function() {
 	console.log('listening on *:' + PORT);
