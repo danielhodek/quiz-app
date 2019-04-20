@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express();
-var config = require('./config-json');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
@@ -17,7 +16,7 @@ var Quiz = require('./model/quiz');
 
 var url;
 const PORT = process.env.PORT || 8080;
-const MONGODB = config.connectionString;
+const MONGODB = process.env.CONN;
 
 // Database connection
 mongoose.connect(MONGODB);
@@ -29,7 +28,7 @@ db.once('open', function() {
 
 // Session handling
 session = session({
-	secret: config.secret,
+	secret: process.env.SECRET,
 	resave: true,
 	saveUninitialized: true,
 	store: new MongoStore({
