@@ -48,7 +48,7 @@
 		<header id="fixed-header" class="fixed-header py-3 px-3 quiz-header flex-r justify-between items-center bg-dark">
 			<h3 class="mb-0"><%= quiz.title %></h3>
 			<div id="timer" class="hide"><span id="minutes"></span>:<span id="seconds"></span></div>
-			<button id="submit-quiz" class="btn btn-lg btn-submit modal-toggle" data-target="modal-review">Submit</button>
+			<button id="submit-quiz" style="visibility: hidden;" class="btn btn-lg btn-submit modal-toggle" data-target="modal-review">Submit</button>
 			<a href="/profile" id="finish-quiz" class="btn btn-lg btn-submit none">Done</a>
 		</header>
 
@@ -133,6 +133,7 @@
 
 			if (document.getElementById('start-button')) {
 				document.getElementById('start-button').addEventListener('click', function() {
+					document.getElementById('submit-quiz').style.visibility = 'visible';
 					let timeLimit = parseInt(document.getElementById('time').value);
 					socket.emit('start quiz', timeLimit);
 				});

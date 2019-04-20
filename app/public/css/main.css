@@ -888,15 +888,15 @@ h4 {
 
 @media only screen and (min-width: 768px) {
 	.carousel-caption-icon {
-		height: 12rem;
+		height: 8rem;
 		transition: height 200ms ease-in;
 	}
 	.carousel-caption-title {
-		font-size: 2.5rem;
+		font-size: 1.5rem;
 		transition: font-size 200ms ease-in;
 	}
 	.carousel-caption {
-		top: 2rem;
+		top: 6rem;
 		transition: all 200ms ease-in;
 	}
 }

@@ -50,6 +50,7 @@ function ajaxPost(action, settings) {
 	xhr.onload = function() {
 		if (this.status === 200) {
 			let data = JSON.parse(this.responseText);
+			this.data = data;
 			if (data.success) {
 				settings.success.call(this);
 			} else {

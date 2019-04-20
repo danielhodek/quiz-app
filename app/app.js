@@ -17,6 +17,7 @@ var Quiz = require('./model/quiz');
 var url;
 const PORT = process.env.PORT || 8080;
 const MONGODB = process.env.CONN;
+console.log(process.env);
 
 // Database connection
 mongoose.connect(MONGODB);

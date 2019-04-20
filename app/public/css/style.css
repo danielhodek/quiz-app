@@ -16,9 +16,6 @@
 .bg-gray {
 	background: #dee2e6;
 }
-.bg-color {
-	background: #ffbf6b;
-}
 .bg-light .toggle:hover {
 	background: rgba(52, 58, 64, .10);
 }
@@ -77,9 +74,13 @@
 	padding-bottom: 6rem;
 }
 #footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
 	font-size: .8rem;
-	padding: 6rem 1rem 2rem 1rem;
-	color: #7a5a2f;
+	padding: 2rem 1rem;
+	color: #adadad;
 }
 #title {
 	font-size: 2rem !important;
@@ -105,7 +106,7 @@
 	background: #fff9c5;
 }
 #quizzes {
-	min-height: 28rem;
+	margin-bottom: 2rem;
 }
 .number-input input {
 	color: #212529 !important;
@@ -113,6 +114,12 @@
 }
 .text-muted {
 	color: #6c757d !important;
+}
+#modal-start .card {
+	margin-top: 8rem;
+}
+#modal-review .card {
+	margin-top: 8rem;
 }
 
 @media only screen and (min-width: 768px) {
