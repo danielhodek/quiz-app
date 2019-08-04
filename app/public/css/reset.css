@@ -22,35 +22,43 @@ time, mark, audio, video {
   font: inherit;
   vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
 }
+
 body {
 	line-height: 1;
 }
+
 ol, ul {
   list-style: none;
 }
+
 blockquote, q {
   quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
   content: '';
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
 a {
 	text-decoration: none;
 	line-height: inherit;
 	font-size: inherit;
   color: inherit;
 }
+
 button {
 	border: none;
 	background: transparent;
@@ -60,10 +68,12 @@ button {
 	-webkit-tap-highlight-color: transparent;
 	cursor: pointer;
 }
+
 fieldset {
 	margin: 0;
 	padding: 0;
 }
+
 input,
 textarea,
 button,
@@ -73,6 +83,7 @@ a {
 	font-family: inherit;
 	font-size: inherit;
 }
+
 input[type="text"], textarea 	 {
 	box-shadow: none;
 	-webkit-appearance: none;

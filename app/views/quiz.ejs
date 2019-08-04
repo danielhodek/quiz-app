@@ -99,6 +99,7 @@
 			socket.on('start quiz', function(timeLimit) {
 				document.body.classList.remove('no-scroll');
 				document.getElementById('modal-start').classList.remove('modal-show');
+				document.getElementById('submit-quiz').style.visibility = 'visible';
 				startQuiz(timeLimit);
 			});
 
@@ -133,7 +134,6 @@
 
 			if (document.getElementById('start-button')) {
 				document.getElementById('start-button').addEventListener('click', function() {
-					document.getElementById('submit-quiz').style.visibility = 'visible';
 					let timeLimit = parseInt(document.getElementById('time').value);
 					socket.emit('start quiz', timeLimit);
 				});

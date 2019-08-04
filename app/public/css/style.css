@@ -8,59 +8,72 @@
   background: #f8f9fa;
 	color: #212529;
 }
+
 .bg-dark {
 	background: #221931;
 	color: #fff;
 	border-color: #888;
 }
+
 .bg-gray {
 	background: #dee2e6;
 }
+
 .bg-light .toggle:hover {
 	background: rgba(52, 58, 64, .10);
 }
+
 .bg-dark .toggle:hover {
 	background: rgba(248, 249, 250, .10);
 }
+
 .btn {
 	color: #212529;
 	background-color: transparent;
 	border-color: rgba(0, 0, 0, .25);
 }
+
 .btn:hover {
 	color: #fff;
   background-color: rgba(0, 0, 0, .25);
 	border-color: rgba(0, 0, 0, 0);
 }
+
 .btn-1 {
 	color: #fff;
 	background-color: #007bff;
 	border-color: #007bff;
 }
+
 .btn-1:hover {
 	background-color: #0067d6;
 	border-color: #0067d6;
 }
+
 .btn-2 {
 	color: #fff;
 	background-color: #6c757d;
 	border-color: #6c757d;
 }
+
 .btn-2:hover {
 	color: #fff;
   background-color: #5a6268;
 	border-color: #545b62;
 }
+
 .btn-submit {
 	color: #fff;
 	background: linear-gradient(135deg, #489cea 0%, #c021e4 100%);
 	border: none;
 }
+
 .btn-submit:hover {
 	color: #fff;
 	background: linear-gradient(135deg, #397cbb 0%, #7d1794 100%);
 	border-color: none;
 }
+
 .btn-control {
 	border: 1px solid rgba(0, 0, 0, .125);
 	border-radius: 50%;
@@ -70,9 +83,12 @@
 	justify-content: center;
 	align-content: center;
 }
+
 #content.home {
 	padding-bottom: 6rem;
+	margin-bottom: 6rem;
 }
+
 #footer {
 	position: absolute;
 	bottom: 0;
@@ -82,42 +98,54 @@
 	padding: 2rem 1rem;
 	color: #adadad;
 }
+
 #title {
 	font-size: 2rem !important;
 }
+
 #back {
 	margin-top: .75rem;
 	font-size: 1.25rem;
 }
+
 #sign-up input, #log-in input {
 	font-size: 1.5rem !important;
 }
+
 #user-name {
 	font-size: 1.25rem;
 	color: #6c757d;
 }
+
 #profile-library {
 	background: #ffd1b6;
 }
+
 #profile-friends {
 	background: #ffdba5;
 }
+
 #profile-create {
 	background: #fff9c5;
 }
+
 #quizzes {
 	margin-bottom: 2rem;
 }
+
 .number-input input {
 	color: #212529 !important;
 	font-size: 1.5rem !important;
 }
+
 .text-muted {
 	color: #6c757d !important;
 }
+
 #modal-start .card {
 	margin-top: 8rem;
 }
+
 #modal-review .card {
 	margin-top: 8rem;
 }
