@@ -40,10 +40,12 @@ router.get('/quiz', function(req, res) {
 		req.session.questions = questions;
 		quizData.questions = questions;
 
-		io.emit('new quiz', {
-			quiz: quizData.quiz,
-			templates: templates
-		});
+		if (quizData.author) {
+			io.emit('new quiz', {
+				quiz: quizData.quiz,
+				templates: templates
+			});
+		}
 
 		res.render('quiz', quizData);	
 	});
